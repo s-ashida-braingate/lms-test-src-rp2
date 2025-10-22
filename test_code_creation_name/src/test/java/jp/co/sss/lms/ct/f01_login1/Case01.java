@@ -37,6 +37,7 @@ public class Case01 {
 	@DisplayName("テスト01 トップページURLでアクセス")
 	void test01() {
 
+		// トップページへアクセス
 		goTo("http://localhost:8080/lms/");
 		// <h2>タグが現れるまで待つ
 		visibilityTimeout(By.tagName("h2"), 10);
