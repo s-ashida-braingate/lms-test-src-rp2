@@ -38,8 +38,11 @@ public class Case02 {
 	@DisplayName("テスト01 トップページURLでアクセス")
 	void test01() {
 
+		// トップページへアクセス
 		goTo("http://localhost:8080/lms/");
+		// <h2>タグが現れるまで待つ
 		visibilityTimeout(By.tagName("h2"), 10);
+
 		getEvidence(new Object() {
 		}, "01");
 	}
@@ -49,7 +52,9 @@ public class Case02 {
 	@DisplayName("テスト02 DBに登録されていないユーザーでログイン")
 	void test02() {
 
+		// トップページへアクセス
 		goTo("http://localhost:8080/lms/");
+		// <h2>タグが現れるまで待つ
 		visibilityTimeout(By.tagName("h2"), 10);
 
 		// ID:test PASS:test を入力
@@ -60,8 +65,10 @@ public class Case02 {
 
 		// エラーメッセージが表示されるまで待つ
 		visibilityTimeout(By.className("help-inline"), 10);
+
 		assertEquals("* ログインに失敗しました。", webDriver.findElement(By.className("help-inline")).getText());
 
+		// スクリーンショット取得
 		getEvidence(new Object() {
 		}, "02");
 	}
