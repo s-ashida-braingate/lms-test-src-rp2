@@ -1,5 +1,6 @@
 package jp.co.sss.lms.ct.f01_login1;
 
+import static jp.co.sss.lms.ct.util.TestConstants.*;
 import static jp.co.sss.lms.ct.util.WebDriverUtils.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -39,10 +40,14 @@ public class Case02 {
 	void test01() {
 
 		// トップページへアクセス
-		goTo("http://localhost:8080/lms/");
-		// <h2>タグが現れるまで待つ
-		visibilityTimeout(By.tagName("h2"), 10);
+		goTo(CONTEXT_PATH);
 
+		// ログインフォームが現れるまで待つ
+		visibilityTimeout(By.id("loginId"), 5);
+		// URLの確認
+		assertTrue(expectedUrlTimeout(CONTEXT_PATH, 5));
+
+		// スクリーンショット取得
 		getEvidence(new Object() {
 		}, "01");
 	}
@@ -53,20 +58,25 @@ public class Case02 {
 	void test02() {
 
 		// トップページへアクセス
-		goTo("http://localhost:8080/lms/");
-		// <h2>タグが現れるまで待つ
-		visibilityTimeout(By.tagName("h2"), 10);
+		goTo(CONTEXT_PATH);
+
+		// ログインフォームが現れるまで待つ
+		visibilityTimeout(By.id("loginId"), 5);
 
 		// ID:test PASS:test を入力
+		webDriver.findElement(By.id("loginId")).clear();
 		webDriver.findElement(By.id("loginId")).sendKeys("test");
+		webDriver.findElement(By.id("password")).clear();
 		webDriver.findElement(By.id("password")).sendKeys("test");
 		// ログインをクリックする
 		webDriver.findElement(By.className("btn-primary")).click();
 
 		// エラーメッセージが表示されるまで待つ
-		visibilityTimeout(By.className("help-inline"), 10);
-
+		visibilityTimeout(By.className("help-inline"), 5);
+		// エラーメッセージの確認
 		assertEquals("* ログインに失敗しました。", webDriver.findElement(By.className("help-inline")).getText());
+		// URLの確認
+		assertTrue(expectedUrlTimeout(CONTEXT_PATH + "login", 5));
 
 		// スクリーンショット取得
 		getEvidence(new Object() {
