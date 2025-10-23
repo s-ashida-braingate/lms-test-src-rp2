@@ -3,6 +3,8 @@ package jp.co.sss.lms.ct.util;
 import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -72,10 +74,25 @@ public class WebDriverUtils {
 	 * @param url
 	 * @param second
 	 * @return boolean
+	 * @author 芦田 add:10/23
 	 */
 	public static boolean expectedUrlTimeout(String url, int second) {
 		WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(second));
 		return wait.until(ExpectedConditions.urlToBe(url));
+	}
+
+	/**
+	 * 新規ウィンドウに切り替え
+	 * @param second
+	 * @author 芦田 add:10/23
+	 */
+	public static void switchToNewWindowTimeout(int second) {
+		// 新しいウィンドウが開かれるのを待つ
+		new WebDriverWait(webDriver, Duration.ofSeconds(second))
+				.until(d -> d.getWindowHandles().size() > 1);
+		// 新しいウィンドウに切り替える
+		List<String> tabs = new ArrayList<>(webDriver.getWindowHandles());
+		webDriver.switchTo().window(tabs.get(tabs.size() - 1));
 	}
 
 	/**

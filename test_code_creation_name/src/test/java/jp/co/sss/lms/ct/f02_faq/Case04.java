@@ -104,6 +104,23 @@ public class Case04 {
 	@DisplayName("テスト04 「よくある質問」リンクからよくある質問画面を別タブに開く")
 	void test04() {
 
+		// 「よくある質問」リンクが表示されるまで待つ
+		visibilityTimeout(By.linkText("よくある質問"), 5);
+		// 「よくある質問」をクリック
+		webDriver.findElement(By.linkText("よくある質問")).click();
+
+		// フォーカスを新規ウィンドウに切り替え
+		switchToNewWindowTimeout(5);
+		// 見出しタグが表示されるまで待つ
+		visibilityTimeout(By.tagName("h2"), 5);
+		// 見出しタグの確認
+		assertEquals("よくある質問", webDriver.findElement(By.tagName("h2")).getText());
+		// URLの確認
+		assertTrue(expectedUrlTimeout(CONTEXT_PATH + "faq", 5));
+
+		// スクリーンショット取得
+		getEvidence(new Object() {
+		}, "03");
 	}
 
 }
