@@ -43,9 +43,9 @@ public class Case04 {
 		goTo(CONTEXT_PATH);
 
 		// ログインフォームが現れるまで待つ
-		visibilityTimeout(By.id("loginId"), 5);
+		visibilityTimeout(By.id("loginId"), WAIT_SECOND);
 		// URLの確認
-		assertTrue(expectedUrlTimeout(CONTEXT_PATH, 5));
+		assertTrue(expectedUrlTimeout(CONTEXT_PATH, WAIT_SECOND));
 
 		// スクリーンショット取得
 		getEvidence(new Object() {
@@ -64,11 +64,11 @@ public class Case04 {
 		webDriver.findElement(By.className("btn-primary")).click();
 
 		// <small>タグが表示されるまで待つ
-		visibilityTimeout(By.tagName("small"), 5);
+		visibilityTimeout(By.tagName("small"), WAIT_SECOND);
 		// ログインユーザの権限とユーザ名の確認
 		assertEquals("ようこそ受講生ＡＡ１さん", webDriver.findElement(By.tagName("small")).getText());
 		// URLの確認
-		assertTrue(expectedUrlTimeout(CONTEXT_PATH + "course/detail", 5));
+		assertTrue(expectedUrlTimeout(CONTEXT_PATH + "course/detail", WAIT_SECOND));
 
 		// スクリーンショット取得
 		getEvidence(new Object() {
@@ -81,18 +81,18 @@ public class Case04 {
 	void test03() {
 
 		// 「機能」リンクが表示されるまで待つ
-		visibilityTimeout(By.className("dropdown-toggle"), 5);
+		visibilityTimeout(By.className("dropdown-toggle"), WAIT_SECOND);
 		// 「機能」をクリック
 		webDriver.findElement(By.className("dropdown-toggle")).click();
 		// 「ヘルプ」リンクが表示されるまで待つ
-		visibilityTimeout(By.linkText("ヘルプ"), 5);
+		visibilityTimeout(By.linkText("ヘルプ"), WAIT_SECOND);
 		// 「ヘルプ」をクリック
 		webDriver.findElement(By.linkText("ヘルプ")).click();
 
 		// 見出しタグの確認
 		assertEquals("ヘルプ", webDriver.findElement(By.tagName("h2")).getText());
 		// URLの確認
-		assertTrue(expectedUrlTimeout(CONTEXT_PATH + "help", 5));
+		assertTrue(expectedUrlTimeout(CONTEXT_PATH + "help", WAIT_SECOND));
 
 		// スクリーンショット取得
 		getEvidence(new Object() {
@@ -105,18 +105,18 @@ public class Case04 {
 	void test04() {
 
 		// 「よくある質問」リンクが表示されるまで待つ
-		visibilityTimeout(By.linkText("よくある質問"), 5);
+		visibilityTimeout(By.linkText("よくある質問"), WAIT_SECOND);
 		// 「よくある質問」をクリック
 		webDriver.findElement(By.linkText("よくある質問")).click();
 
 		// フォーカスを新規ウィンドウに切り替え
-		switchToNewWindowTimeout(5);
+		switchToNewWindowTimeout(WAIT_SECOND);
 		// 見出しタグが表示されるまで待つ
-		visibilityTimeout(By.tagName("h2"), 5);
+		visibilityTimeout(By.tagName("h2"), WAIT_SECOND);
 		// 見出しタグの確認
 		assertEquals("よくある質問", webDriver.findElement(By.tagName("h2")).getText());
 		// URLの確認
-		assertTrue(expectedUrlTimeout(CONTEXT_PATH + "faq", 5));
+		assertTrue(expectedUrlTimeout(CONTEXT_PATH + "faq", WAIT_SECOND));
 
 		// スクリーンショット取得
 		getEvidence(new Object() {

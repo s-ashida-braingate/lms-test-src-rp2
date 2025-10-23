@@ -43,9 +43,9 @@ public class Case02 {
 		goTo(CONTEXT_PATH);
 
 		// ログインフォームが現れるまで待つ
-		visibilityTimeout(By.id("loginId"), 5);
+		visibilityTimeout(By.id("loginId"), WAIT_SECOND);
 		// URLの確認
-		assertTrue(expectedUrlTimeout(CONTEXT_PATH, 5));
+		assertTrue(expectedUrlTimeout(CONTEXT_PATH, WAIT_SECOND));
 
 		// スクリーンショット取得
 		getEvidence(new Object() {
@@ -61,7 +61,7 @@ public class Case02 {
 		goTo(CONTEXT_PATH);
 
 		// ログインフォームが現れるまで待つ
-		visibilityTimeout(By.id("loginId"), 5);
+		visibilityTimeout(By.id("loginId"), WAIT_SECOND);
 
 		// ID:test PASS:test を入力
 		webDriver.findElement(By.id("loginId")).clear();
@@ -72,11 +72,11 @@ public class Case02 {
 		webDriver.findElement(By.className("btn-primary")).click();
 
 		// エラーメッセージが表示されるまで待つ
-		visibilityTimeout(By.className("help-inline"), 5);
+		visibilityTimeout(By.className("help-inline"), WAIT_SECOND);
 		// エラーメッセージの確認
 		assertEquals("* ログインに失敗しました。", webDriver.findElement(By.className("help-inline")).getText());
 		// URLの確認
-		assertTrue(expectedUrlTimeout(CONTEXT_PATH + "login", 5));
+		assertTrue(expectedUrlTimeout(CONTEXT_PATH + "login", WAIT_SECOND));
 
 		// スクリーンショット取得
 		getEvidence(new Object() {

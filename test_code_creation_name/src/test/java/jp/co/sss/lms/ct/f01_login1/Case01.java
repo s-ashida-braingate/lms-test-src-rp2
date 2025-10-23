@@ -43,9 +43,9 @@ public class Case01 {
 		goTo(CONTEXT_PATH);
 
 		// ログインフォームが現れるまで待つ
-		visibilityTimeout(By.id("loginId"), 5);
+		visibilityTimeout(By.id("loginId"), WAIT_SECOND);
 		// URLの確認
-		assertTrue(expectedUrlTimeout(CONTEXT_PATH, 5));
+		assertTrue(expectedUrlTimeout(CONTEXT_PATH, WAIT_SECOND));
 
 		// スクリーンショット取得
 		getEvidence(new Object() {

@@ -12,6 +12,7 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -67,6 +68,18 @@ public class WebDriverUtils {
 	public static void visibilityTimeout(By locater, int second) {
 		WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(second));
 		wait.until(ExpectedConditions.visibilityOfElementLocated(locater));
+	}
+
+	/**
+	 * 期待値タイムアウト設定
+	 * @param condition
+	 * @param second
+	 * @return
+	 * @author 芦田 add:10/23
+	 */
+	public static boolean expectedConditionTimeout(ExpectedCondition<Boolean> condition, int second) {
+		WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(second));
+		return wait.until(condition);
 	}
 
 	/**

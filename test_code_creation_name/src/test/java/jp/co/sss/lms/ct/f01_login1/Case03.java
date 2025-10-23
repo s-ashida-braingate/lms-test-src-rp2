@@ -43,9 +43,9 @@ public class Case03 {
 		goTo(CONTEXT_PATH);
 
 		// ログインフォームが現れるまで待つ
-		visibilityTimeout(By.id("loginId"), 5);
+		visibilityTimeout(By.id("loginId"), WAIT_SECOND);
 		// URLの確認
-		assertTrue(expectedUrlTimeout(CONTEXT_PATH, 5));
+		assertTrue(expectedUrlTimeout(CONTEXT_PATH, WAIT_SECOND));
 
 		// スクリーンショット取得
 		getEvidence(new Object() {
@@ -64,11 +64,11 @@ public class Case03 {
 		webDriver.findElement(By.className("btn-primary")).click();
 
 		// <small>タグが表示されるまで待つ
-		visibilityTimeout(By.tagName("small"), 5);
+		visibilityTimeout(By.tagName("small"), WAIT_SECOND);
 		// ログインユーザの権限とユーザ名の確認
 		assertEquals("ようこそ受講生ＡＡ１さん", webDriver.findElement(By.tagName("small")).getText());
 		// URLの確認
-		assertTrue(expectedUrlTimeout(CONTEXT_PATH + "course/detail", 5));
+		assertTrue(expectedUrlTimeout(CONTEXT_PATH + "course/detail", WAIT_SECOND));
 
 		// スクリーンショット取得
 		getEvidence(new Object() {
