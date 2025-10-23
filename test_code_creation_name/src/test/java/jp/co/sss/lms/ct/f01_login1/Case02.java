@@ -39,16 +39,7 @@ public class Case02 {
 	@DisplayName("テスト01 トップページURLでアクセス")
 	void test01() {
 
-		// トップページへアクセス
-		goTo(CONTEXT_PATH);
-
-		// ログインフォームが現れるまで待つ
-		visibilityTimeout(By.id("loginId"), WAIT_SECOND);
-		// URLの確認
-		assertTrue(expectedUrlTimeout(CONTEXT_PATH, WAIT_SECOND));
-
-		// スクリーンショット取得
-		getEvidence(new Object() {
+		gotoTop(new Object() {
 		});
 	}
 
