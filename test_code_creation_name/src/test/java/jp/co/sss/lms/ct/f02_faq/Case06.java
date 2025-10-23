@@ -97,7 +97,7 @@ public class Case06 {
 		By category = By.linkText(SEARCH_CATEGORY);
 		// 「【研修関係】」リンクが表示されるまで待つ
 		visibilityTimeout(category, WAIT_SECOND);
-		// 「【研修関係】」をクリック
+		// 「【研修関係】」を押下
 		webDriver.findElement(category).click();
 
 		// URLを確認
@@ -133,7 +133,7 @@ public class Case06 {
 		getEvidence(new Object() {
 		}, "01");
 
-		// 検索結果をクリック
+		// 検索結果を押下
 		WebElement elem = webDriver.findElement(By.xpath("//span[text()='Q.']/following-sibling::span[1]"));
 		elem.click();
 		// 検索結果が表示されるまで待つ
