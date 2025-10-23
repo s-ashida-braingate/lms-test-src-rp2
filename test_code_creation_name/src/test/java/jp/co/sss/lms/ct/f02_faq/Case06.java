@@ -60,9 +60,13 @@ public class Case06 {
 	@DisplayName("テスト02 初回ログイン済みの受講生ユーザーでログイン")
 	void test02() {
 
+		// 入力値
+		final String LOGIN_ID = "StudentAA01";
+		final String PASSWORD = "Test1234";
+
 		// ID:test PASS:test を入力
-		webDriver.findElement(By.id("loginId")).sendKeys("StudentAA01");
-		webDriver.findElement(By.id("password")).sendKeys("Test1234");
+		webDriver.findElement(By.id("loginId")).sendKeys(LOGIN_ID);
+		webDriver.findElement(By.id("password")).sendKeys(PASSWORD);
 		// ログインをクリックする
 		webDriver.findElement(By.className("btn-primary")).click();
 
@@ -83,10 +87,11 @@ public class Case06 {
 	@DisplayName("テスト03 上部メニューの「ヘルプ」リンクからヘルプ画面に遷移")
 	void test03() {
 
+		By menuBy = By.className("dropdown-toggle");
 		// 「機能」リンクが表示されるまで待つ
-		visibilityTimeout(By.className("dropdown-toggle"), WAIT_SECOND);
+		visibilityTimeout(menuBy, WAIT_SECOND);
 		// 「機能」をクリック
-		webDriver.findElement(By.className("dropdown-toggle")).click();
+		webDriver.findElement(menuBy).click();
 		// 「ヘルプ」リンクが表示されるまで待つ
 		visibilityTimeout(By.linkText("ヘルプ"), WAIT_SECOND);
 		// 「ヘルプ」をクリック
@@ -107,10 +112,11 @@ public class Case06 {
 	@DisplayName("テスト04 「よくある質問」リンクからよくある質問画面を別タブに開く")
 	void test04() {
 
+		By linkBy = By.linkText("よくある質問");
 		// 「よくある質問」リンクが表示されるまで待つ
-		visibilityTimeout(By.linkText("よくある質問"), WAIT_SECOND);
+		visibilityTimeout(linkBy, WAIT_SECOND);
 		// 「よくある質問」をクリック
-		webDriver.findElement(By.linkText("よくある質問")).click();
+		webDriver.findElement(linkBy).click();
 
 		// フォーカスを新規ウィンドウに切り替え
 		switchToNewWindowTimeout(WAIT_SECOND);
@@ -164,8 +170,8 @@ public class Case06 {
 		// 期待する検索結果が表示されているか
 		List<WebElement> elems = webDriver.findElements(By.xpath(
 				"//span[text()='Q.']/following-sibling::span[1]"));
-		assertTrue(elems.get(0).getText().equals(EXPECTED_RESULT1));
-		assertTrue(elems.get(1).getText().equals(EXPECTED_RESULT2));
+		assertEquals(EXPECTED_RESULT1, elems.get(0).getText());
+		assertEquals(EXPECTED_RESULT2, elems.get(1).getText());
 
 		// 少しだけスクロール
 		scrollTo("400");
@@ -178,7 +184,27 @@ public class Case06 {
 	@Order(6)
 	@DisplayName("テスト06 検索結果の質問をクリックしその回答を表示")
 	void test06() {
-		// TODO ここに追加
+
+		// 期待値
+		final String EXPECTED_ANSWER = "受講者の退職や解雇等、やむを得ない事情による途中終了に関してなど、事情をお伺いした上で、協議という形を取らせて頂きます。 弊社営業担当までご相談下さい。";
+
+		// スクリーンショット取得
+		getEvidence(new Object() {
+		}, "01");
+
+		// 検索結果をクリック
+		WebElement elem = webDriver.findElement(By.xpath("//span[text()='Q.']/following-sibling::span[1]"));
+		elem.click();
+		// 検索結果が表示されるまで待つ
+		By answerBy = By.xpath("//span[text()='A.']/following-sibling::span[1]");
+		visibilityTimeout(answerBy, WAIT_SECOND);
+
+		// 期待値と一致しているか
+		assertEquals(EXPECTED_ANSWER, webDriver.findElement(answerBy).getText());
+
+		// スクリーンショット取得
+		getEvidence(new Object() {
+		}, "02");
 	}
 
 }

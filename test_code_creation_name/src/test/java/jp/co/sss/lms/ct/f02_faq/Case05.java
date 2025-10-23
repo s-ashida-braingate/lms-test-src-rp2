@@ -61,9 +61,13 @@ public class Case05 {
 	@DisplayName("テスト02 初回ログイン済みの受講生ユーザーでログイン")
 	void test02() {
 
+		// 入力値
+		final String LOGIN_ID = "StudentAA01";
+		final String PASSWORD = "Test1234";
+
 		// ID:test PASS:test を入力
-		webDriver.findElement(By.id("loginId")).sendKeys("StudentAA01");
-		webDriver.findElement(By.id("password")).sendKeys("Test1234");
+		webDriver.findElement(By.id("loginId")).sendKeys(LOGIN_ID);
+		webDriver.findElement(By.id("password")).sendKeys(PASSWORD);
 		// ログインをクリックする
 		webDriver.findElement(By.className("btn-primary")).click();
 
@@ -84,10 +88,11 @@ public class Case05 {
 	@DisplayName("テスト03 上部メニューの「ヘルプ」リンクからヘルプ画面に遷移")
 	void test03() {
 
+		By menuBy = By.className("dropdown-toggle");
 		// 「機能」リンクが表示されるまで待つ
-		visibilityTimeout(By.className("dropdown-toggle"), WAIT_SECOND);
+		visibilityTimeout(menuBy, WAIT_SECOND);
 		// 「機能」をクリック
-		webDriver.findElement(By.className("dropdown-toggle")).click();
+		webDriver.findElement(menuBy).click();
 		// 「ヘルプ」リンクが表示されるまで待つ
 		visibilityTimeout(By.linkText("ヘルプ"), WAIT_SECOND);
 		// 「ヘルプ」をクリック
@@ -108,10 +113,11 @@ public class Case05 {
 	@DisplayName("テスト04 「よくある質問」リンクからよくある質問画面を別タブに開く")
 	void test04() {
 
+		By linkBy = By.linkText("よくある質問");
 		// 「よくある質問」リンクが表示されるまで待つ
-		visibilityTimeout(By.linkText("よくある質問"), WAIT_SECOND);
+		visibilityTimeout(linkBy, WAIT_SECOND);
 		// 「よくある質問」をクリック
-		webDriver.findElement(By.linkText("よくある質問")).click();
+		webDriver.findElement(linkBy).click();
 
 		// フォーカスを新規ウィンドウに切り替え
 		switchToNewWindowTimeout(WAIT_SECOND);
