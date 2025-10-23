@@ -49,7 +49,7 @@ public class Case01 {
 
 		// スクリーンショット取得
 		getEvidence(new Object() {
-		}, "01");
+		});
 	}
 
 }

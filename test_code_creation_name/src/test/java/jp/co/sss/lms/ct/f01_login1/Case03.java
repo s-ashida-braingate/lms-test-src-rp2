@@ -49,7 +49,7 @@ public class Case03 {
 
 		// スクリーンショット取得
 		getEvidence(new Object() {
-		}, "01");
+		});
 	}
 
 	@Test
@@ -72,7 +72,7 @@ public class Case03 {
 
 		// スクリーンショット取得
 		getEvidence(new Object() {
-		}, "02");
+		});
 	}
 
 }
