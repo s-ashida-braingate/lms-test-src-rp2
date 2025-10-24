@@ -4,9 +4,11 @@ import static jp.co.sss.lms.ct.util.WebDriverUtils.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 /**
  * テスト用定数
+ * @author 芦田
  */
 public class TestConstants {
 
@@ -86,6 +88,27 @@ public class TestConstants {
 		assertTrue(expectedUrlTimeout(CONTEXT_PATH + "faq", WAIT_SECOND));
 
 		// スクリーンショット取得
+		getEvidence(instance);
+	}
+
+	public static void clickUser(Object instance) {
+
+		// 入力値
+		final String WELCOME_USERNAME = "ようこそ受講生ＡＡ１さん";
+		// 期待値
+		final String EXPECTED_URL = "user/detail";
+		final String HEADER_TEXT = "ユーザー詳細";
+
+		// 上部メニューの「ようこそ○○さん」リンクを押下
+		webDriver.findElement(By.xpath("//small[text()='" + WELCOME_USERNAME + "']")).click();
+
+		// URLが期待値になっているか
+		assertTrue(expectedUrlTimeout(CONTEXT_PATH + EXPECTED_URL, WAIT_SECOND));
+		// 見出しが期待値になっているか
+		assertTrue(expectedConditionTimeout(ExpectedConditions.textToBe(
+				By.tagName("h2"), HEADER_TEXT), WAIT_SECOND));
+
+		// スクリーンショットを取得
 		getEvidence(instance);
 	}
 }

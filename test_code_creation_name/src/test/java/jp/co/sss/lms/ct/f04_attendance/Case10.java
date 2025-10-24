@@ -1,5 +1,6 @@
 package jp.co.sss.lms.ct.f04_attendance;
 
+import static jp.co.sss.lms.ct.util.TestConstants.*;
 import static jp.co.sss.lms.ct.util.WebDriverUtils.*;
 
 import org.junit.jupiter.api.AfterAll;
@@ -35,14 +36,18 @@ public class Case10 {
 	@Order(1)
 	@DisplayName("テスト01 トップページURLでアクセス")
 	void test01() {
-		// TODO ここに追加
+
+		gotoTop(new Object() {
+		});
 	}
 
 	@Test
 	@Order(2)
 	@DisplayName("テスト02 初回ログイン済みの受講生ユーザーでログイン")
 	void test02() {
-		// TODO ここに追加
+
+		loginTest(new Object() {
+		});
 	}
 
 	@Test
