@@ -6,6 +6,7 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
@@ -109,6 +110,24 @@ public class WebDriverUtils {
 	}
 
 	/**
+	 * 要素を押下する
+	 * @param by
+	 * @author 芦田 add:10/27
+	 */
+	public static void clickOn(By by) {
+		webDriver.findElement(by).click();
+	}
+
+	/**
+	 * アラートでOKを選択する
+	 * @author 芦田 add:10/27
+	 */
+	public static void alertAccept() {
+		Alert alert = webDriver.switchTo().alert();
+		alert.accept();
+	}
+
+	/**
 	 * 指定ピクセル分だけスクロール
 	 * @param pixel
 	 */
@@ -122,6 +141,16 @@ public class WebDriverUtils {
 	 */
 	public static void scrollTo(String pixel) {
 		((JavascriptExecutor) webDriver).executeScript("window.scrollTo(0," + pixel + ");");
+	}
+
+	/**
+	 * フレーム内を最下部までスクロール
+	 * @param element
+	 * @author 芦田 add:10/27
+	 */
+	public static void scrollElementToBottom(By by) {
+		((JavascriptExecutor) webDriver).executeScript(
+				"arguments[0].scrollTop = arguments[0].scrollHeight;", webDriver.findElement(by));
 	}
 
 	/**
