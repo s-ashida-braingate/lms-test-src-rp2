@@ -16,7 +16,6 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 /**
  * 結合テスト 勤怠管理機能
@@ -62,25 +61,7 @@ public class Case10 {
 	@DisplayName("テスト03 上部メニューの「勤怠」リンクから勤怠管理画面に遷移")
 	void test03() {
 
-		// 期待値
-		final String EXPECTED_H2 = "勤怠管理";
-		final String EXPECTED_URL = "attendance/detail";
-
-		// 上部メニューの「勤怠」リンクの表示待ち
-		By attendance = By.linkText("勤怠");
-		visibilityTimeout(attendance, WAIT_SECOND);
-
-		// リンクを押下
-		webDriver.findElement(attendance).click();
-
-		By h2 = By.xpath("//*[@id=\"main\"]/h2");
-		// 見出しを検証
-		assertTrue(expectedConditionTimeout(ExpectedConditions.textToBe(h2, EXPECTED_H2), WAIT_SECOND));
-		// URLを検証
-		assertTrue(expectedUrlTimeout(CONTEXT_PATH + EXPECTED_URL, WAIT_SECOND));
-
-		// スクリーンショットを取得
-		getEvidence(new Object() {
+		gotoAttendance(new Object() {
 		});
 	}
 

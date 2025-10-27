@@ -58,7 +58,7 @@ public class Case09 {
 	@Order(3)
 	@DisplayName("テスト03 上部メニューの「ようこそ○○さん」リンクからユーザー詳細画面に遷移")
 	void test03() {
-		clickUser(new Object() {
+		gotoUserDetail(new Object() {
 		});
 	}
 

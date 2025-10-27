@@ -91,7 +91,7 @@ public class TestConstants {
 		getEvidence(instance);
 	}
 
-	public static void clickUser(Object instance) {
+	public static void gotoUserDetail(Object instance) {
 
 		// 入力値
 		final String WELCOME_USERNAME = "ようこそ受講生ＡＡ１さん";
@@ -107,6 +107,29 @@ public class TestConstants {
 		// 見出しが期待値になっているか
 		assertTrue(expectedConditionTimeout(ExpectedConditions.textToBe(
 				By.tagName("h2"), HEADER_TEXT), WAIT_SECOND));
+
+		// スクリーンショットを取得
+		getEvidence(instance);
+	}
+
+	public static void gotoAttendance(Object instance) {
+
+		// 期待値
+		final String EXPECTED_H2 = "勤怠管理";
+		final String EXPECTED_URL = "attendance/detail";
+
+		// 上部メニューの「勤怠」リンクの表示待ち
+		By attendance = By.linkText("勤怠");
+		visibilityTimeout(attendance, WAIT_SECOND);
+
+		// リンクを押下
+		webDriver.findElement(attendance).click();
+
+		By h2 = By.xpath("//*[@id=\"main\"]/h2");
+		// 見出しを検証
+		assertTrue(expectedConditionTimeout(ExpectedConditions.textToBe(h2, EXPECTED_H2), WAIT_SECOND));
+		// URLを検証
+		assertTrue(expectedUrlTimeout(CONTEXT_PATH + EXPECTED_URL, WAIT_SECOND));
 
 		// スクリーンショットを取得
 		getEvidence(instance);

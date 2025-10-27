@@ -12,6 +12,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -95,6 +96,11 @@ public class WebDriverUtils {
 		return wait.until(ExpectedConditions.urlToBe(url));
 	}
 
+	public static boolean expectedH2Timeout(String h2, int second) {
+		WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(second));
+		return wait.until(ExpectedConditions.textToBe(By.xpath("//div[@id='main']/h2[1]"), h2));
+	}
+
 	/**
 	 * 新規ウィンドウに切り替え
 	 * @param second
@@ -144,7 +150,28 @@ public class WebDriverUtils {
 	}
 
 	/**
-	 * フレーム内を最下部までスクロール
+	 * 要素(By)が画面中央にくるまでスクロール
+	 * @param by
+	 * @author 芦田 add:10/27
+	 */
+	public static void scrollToLocate(By by) {
+		WebElement elem = webDriver.findElement(by);
+		((JavascriptExecutor) webDriver).executeScript(
+				"arguments[0].scrollIntoView({block: 'center'});", elem);
+	}
+
+	/**
+	 * 要素(WebElement)が画面中央にくるまでスクロール
+	 * @param element
+	 * @author 芦田 add:10/27
+	 */
+	public static void scrollToElement(WebElement elem) {
+		((JavascriptExecutor) webDriver).executeScript(
+				"arguments[0].scrollIntoView({block: 'center'});", elem);
+	}
+
+	/**
+	 * タグ内の最下部までスクロール
 	 * @param element
 	 * @author 芦田 add:10/27
 	 */
