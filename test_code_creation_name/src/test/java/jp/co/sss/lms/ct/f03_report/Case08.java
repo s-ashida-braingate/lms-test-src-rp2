@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.WebElement;
 
 /**
  * 結合テスト レポート機能
@@ -61,11 +61,12 @@ public class Case08 {
 		// 期待値
 		final String EXPECTED_URL = "section/detail";
 
-		// 提出済みの詳細ボタンが表示されるのを待つ
-		By btn = By.xpath("//span[text()='提出済み']/following::input[@class='btn btn-default'][3]");
+		// 提出済みの研修日の「詳細」ボタンへスクロール
+		By btn = By.xpath("//span[text()='提出済み']/../../td[5]/form/input[3][@value='詳細']");
+		scrollToLocate(btn);
 		visibilityTimeout(btn, WAIT_SECOND);
 		// 詳細ボタンを押下　
-		webDriver.findElement(btn).click();
+		clickOn(btn);
 
 		// セクション詳細画面が表示されるのを待つ
 		visibilityTimeout(By.id("sectionDetail"), WAIT_SECOND);
@@ -83,18 +84,21 @@ public class Case08 {
 	void test04() {
 
 		// 入力値
-		final String BUTTON_NAME = "提出済み日報【デモ】を確認する";
+		final String BUTTON_NAME = "提出済み週報【デモ】を確認する";
 		// 期待値
+		final String EXPECTED_H2 = "週報【デモ】 2022年10月2日";
 		final String EXPECTED_URL = "report/regist";
 
+		// 「確認」ボタンへスクロール
 		By btn = By.xpath("//input[@value='" + BUTTON_NAME + "']");
+		scrollToLocate(btn);
 		visibilityTimeout(btn, WAIT_SECOND);
-		// 詳細ボタンを押下　
-		webDriver.findElement(btn).click();
+		// ボタンを押下　
+		clickOn(btn);
 
-		// セクション詳細画面が表示されるのを待つ
-		visibilityTimeout(By.id("content_0"), WAIT_SECOND);
-		// URLが期待値になっているか
+		// 見出しを検証
+		assertTrue(expectedH2Timeout(EXPECTED_H2, WAIT_SECOND));
+		// URLを検証
 		assertTrue(expectedUrlTimeout(CONTEXT_PATH + EXPECTED_URL, WAIT_SECOND));
 
 		// スクリーンショットを取得
@@ -108,31 +112,32 @@ public class Case08 {
 	void test05() {
 
 		// 入力値
-		final String INPUT_REPORT = "test";
+		final String INPUT_TEXT = "4";
 		// 期待値
-		final String BUTTON_NAME = "提出済み日報【デモ】を確認する";
-		final String EXPECTED_URL = "section/detail?sectionId=3";
+		final String EXPECTED_H2 = "アルゴリズム、フローチャート 2022年10月2日";
+		final String EXPECTED_URL = "section/detail?sectionId=2";
 
 		// スクリーンショットを取得
 		getEvidence(new Object() {
 		}, "01");
 
-		// 報告内容を入力
-		webDriver.findElement(By.id("content_0")).clear();
-		webDriver.findElement(By.id("content_0")).sendKeys(INPUT_REPORT);
+		// 目標の達成度を入力
+		WebElement form = webDriver.findElement(By.id("content_0"));
+		form.clear();
+		form.sendKeys(INPUT_TEXT);
 
 		// スクリーンショットを取得
 		getEvidence(new Object() {
 		}, "02");
 
 		// 「提出する」ボタンを押下
-		webDriver.findElement(By.xpath("//button[text()='提出する']")).click();
+		By btn = By.xpath("//button[text()='提出する']");
+		scrollToLocate(btn);
+		clickOn(btn);
 
-		// 確認ボタン名が更新されているか
-		By btn = By.xpath("//input[@value='" + BUTTON_NAME + "']");
-		visibilityTimeout(btn, WAIT_SECOND);
-
-		// URLが期待値になっているか
+		// 見出しの検証
+		assertTrue(expectedH2Timeout(EXPECTED_H2, WAIT_SECOND));
+		// URLの検証
 		assertTrue(expectedUrlTimeout(CONTEXT_PATH + EXPECTED_URL, WAIT_SECOND));
 
 		// スクリーンショットを取得
@@ -154,35 +159,29 @@ public class Case08 {
 	@DisplayName("テスト07 該当レポートの「詳細」ボタンを押下しレポート詳細画面で修正内容が反映される")
 	void test07() {
 
-		assertTrue(false, "テストコード未完成");
-
 		// 入力値
 		final String REPORT_DATE = "2022年10月5日(水)";
 		// 期待値
 		final String EXPECTED_URL = "report/detail";
-		final String EXPECTED_TEXT = "";
+		final String EXPECTED_VALUE = "4";
 
-		// 少しスクロール
-		scrollTo("400");
+		// 要素へスクロール
+		By btn = By.xpath(
+				"//h3[text()='レポート']/following-sibling::table/tbody/tr[3]/td[5]/form[1]/input[1][@value='詳細']");
+		scrollToLocate(btn);
+		// 「詳細」ボタンを押下
+		clickOn(btn);
 
-		By btn = By.xpath("//td[text()='" + REPORT_DATE + "']/following::input[@value='詳細']");
-		// 該当レポートの「詳細」ボタンが表示されるのを待つ
-		visibilityTimeout(btn, WAIT_SECOND);
-
-		// スクリーンショットを取得
-		getEvidence(new Object() {
-		}, "01");
-
-		// ボタンを押下
-		webDriver.findElement(btn).click();
-
-		By detail = By.xpath("//th[text()='本日の報告内容をお書きください。']/following::td[1]");
-		// 修正内容が反映されているか検証
-		assertTrue(expectedConditionTimeout(ExpectedConditions.textToBe(detail, EXPECTED_TEXT), WAIT_SECOND));
+		// 期待値の検証
+		By target = By.xpath("//th[text()='目標の達成度']/../td");
+		scrollToLocate(target);
+		assertEquals(EXPECTED_VALUE, webDriver.findElement(target).getText());
+		// URLの検証
+		assertTrue(expectedUrlTimeout(CONTEXT_PATH + EXPECTED_URL, WAIT_SECOND));
 
 		// スクリーンショットを取得
 		getEvidence(new Object() {
-		}, "02");
+		});
 	}
 
 }

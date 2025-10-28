@@ -98,7 +98,7 @@ public class WebDriverUtils {
 
 	public static boolean expectedH2Timeout(String h2, int second) {
 		WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(second));
-		return wait.until(ExpectedConditions.textToBe(By.xpath("//div[@id='main']/h2[1]"), h2));
+		return wait.until(ExpectedConditions.textToBe(By.xpath("//h2[1]"), h2));
 	}
 
 	/**
