@@ -16,6 +16,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.google.common.io.Files;
@@ -73,6 +74,22 @@ public class WebDriverUtils {
 	}
 
 	/**
+	 * 要素の期待文字列タイムアウト設定
+	 * @param by
+	 * @param second
+	 * @return
+	 * @author 芦田 add:10/28
+	 */
+	public static String getTextTimeout(By locater, int second) {
+		WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(second));
+		String text = webDriver.findElement(locater).getText();
+		if (wait.until(ExpectedConditions.textToBe(locater, text))) {
+			return text;
+		}
+		return null;
+	}
+
+	/**
 	 * 期待値タイムアウト設定
 	 * @param condition
 	 * @param second
@@ -113,6 +130,16 @@ public class WebDriverUtils {
 		// 新しいウィンドウに切り替える
 		List<String> tabs = new ArrayList<>(webDriver.getWindowHandles());
 		webDriver.switchTo().window(tabs.get(tabs.size() - 1));
+	}
+
+	/**
+	 * プルダウンリストを選択する
+	 * @param locater
+	 * @param value
+	 * @author 芦田 add:10/28
+	 */
+	public static void selectValue(By locater, String value) {
+		new Select(webDriver.findElement(locater)).selectByValue(value);
 	}
 
 	/**

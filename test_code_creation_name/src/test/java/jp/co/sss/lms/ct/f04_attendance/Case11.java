@@ -65,24 +65,7 @@ public class Case11 {
 	@Order(4)
 	@DisplayName("テスト04 「勤怠情報を直接編集する」リンクから勤怠情報直接変更画面に遷移")
 	void test04() {
-
-		// 期待値
-		final String EXPECTED_H2 = "勤怠管理";
-		final String EXPECTED_URL = "attendance/update";
-
-		// リンクが表示されるまで待つ
-		By inputBy = By.linkText("勤怠情報を直接編集する");
-		visibilityTimeout(inputBy, WAIT_SECOND);
-		// リンクを押下
-		clickOn(inputBy);
-
-		// 見出しの検証
-		assertTrue(expectedH2Timeout(EXPECTED_H2, WAIT_SECOND));
-		// URLの検証
-		assertTrue(expectedUrlTimeout(CONTEXT_PATH + EXPECTED_URL, WAIT_SECOND));
-
-		// スクリーンショットを取得
-		getEvidence(new Object() {
+		gotoAttendanceUpdate(new Object() {
 		});
 	}
 
@@ -97,7 +80,7 @@ public class Case11 {
 
 		// 出勤か退勤が空のリストを取得
 		By blankTime = By.xpath(
-				"//tbody[@class='db']/tr/td[position()=4 or position()=6]" +
+				"//tbody[@class='db']/tr/td[position()=4 or position()=7]" +
 						"/select/option[position()=1 and @selected='selected']");
 		List<WebElement> blankList = webDriver.findElements(blankTime);
 

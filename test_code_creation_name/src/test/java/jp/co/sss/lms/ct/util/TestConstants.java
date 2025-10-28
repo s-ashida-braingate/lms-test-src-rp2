@@ -131,7 +131,31 @@ public class TestConstants {
 		// URLを検証
 		assertTrue(expectedUrlTimeout(CONTEXT_PATH + EXPECTED_URL, WAIT_SECOND));
 
-		// スクリーンショットを取得
-		getEvidence(instance);
+		if (instance != null) {
+			// スクリーンショットを取得
+			getEvidence(instance);
+		}
+	}
+
+	public static void gotoAttendanceUpdate(Object instance) {
+		// 期待値
+		final String EXPECTED_H2 = "勤怠管理";
+		final String EXPECTED_URL = "attendance/update";
+
+		// リンクが表示されるまで待つ
+		By inputBy = By.linkText("勤怠情報を直接編集する");
+		visibilityTimeout(inputBy, WAIT_SECOND);
+		// リンクを押下
+		clickOn(inputBy);
+
+		// 見出しの検証
+		assertTrue(expectedH2Timeout(EXPECTED_H2, WAIT_SECOND));
+		// URLの検証
+		assertTrue(expectedUrlTimeout(CONTEXT_PATH + EXPECTED_URL, WAIT_SECOND));
+
+		if (instance != null) {
+			// スクリーンショットを取得
+			getEvidence(instance);
+		}
 	}
 }
