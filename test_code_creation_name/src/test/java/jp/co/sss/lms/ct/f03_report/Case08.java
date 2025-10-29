@@ -58,23 +58,7 @@ public class Case08 {
 	@DisplayName("テスト03 提出済の研修日の「詳細」ボタンを押下しセクション詳細画面に遷移")
 	void test03() {
 
-		// 期待値
-		final String EXPECTED_URL = "section/detail";
-
-		// 提出済みの研修日の「詳細」ボタンへスクロール
-		By btn = By.xpath("//span[text()='提出済み']/../../td[5]/form/input[3][@value='詳細']");
-		scrollToLocate(btn);
-		visibilityTimeout(btn, WAIT_SECOND);
-		// 詳細ボタンを押下　
-		clickOn(btn);
-
-		// セクション詳細画面が表示されるのを待つ
-		visibilityTimeout(By.id("sectionDetail"), WAIT_SECOND);
-		// URLが期待値になっているか
-		assertTrue(expectedUrlTimeout(CONTEXT_PATH + EXPECTED_URL, WAIT_SECOND));
-
-		// スクリーンショットを取得
-		getEvidence(new Object() {
+		gotoSectionDetail(new Object() {
 		});
 	}
 
@@ -159,8 +143,6 @@ public class Case08 {
 	@DisplayName("テスト07 該当レポートの「詳細」ボタンを押下しレポート詳細画面で修正内容が反映される")
 	void test07() {
 
-		// 入力値
-		final String REPORT_DATE = "2022年10月5日(水)";
 		// 期待値
 		final String EXPECTED_URL = "report/detail";
 		final String EXPECTED_VALUE = "4";

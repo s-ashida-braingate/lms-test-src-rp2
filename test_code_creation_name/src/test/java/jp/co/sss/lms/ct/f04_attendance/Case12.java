@@ -223,7 +223,37 @@ public class Case12 {
 	@Order(9)
 	@DisplayName("テスト09 不適切な内容で修正してエラー表示：備考が100文字超")
 	void test09() {
-		// TODO ここに追加
+
+		// 入力値
+		final String INPUT_VALUE = "a".repeat(101);
+		// 期待値
+		final String EXPECTED_MESSAGE1 = "* 備考の長さが最大値(100)を超えています。";
+		final String EXPECTED_URL = "attendance/update";
+
+		gotoAttendance(null);
+		gotoAttendanceUpdate(null);
+
+		By note = By.xpath("//*[@id=\"main\"]/div/div/form/table/tbody/tr[1]/td[12]/input");
+		inputForm(note, INPUT_VALUE);
+
+		By button = By.xpath("//input[@value='更新']");
+		// 要素へスクロール
+		scrollToLocate(button);
+		visibilityTimeout(button, WAIT_SECOND);
+		// 「更新」ボタンを押下
+		clickOn(button);
+		// OKを押下
+		alertAccept();
+
+		// エラーメッセージの検証
+		By msg1 = By.xpath("//*[@id=\"main\"]/div/div/ul/li[1]/span");
+		assertEquals(EXPECTED_MESSAGE1, getTextTimeout(msg1, WAIT_SECOND));
+		// URLの検証
+		assertTrue(expectedUrlTimeout(CONTEXT_PATH + EXPECTED_URL, WAIT_SECOND));
+
+		// スクリーンショットを取得
+		getEvidence(new Object() {
+		});
 	}
 
 }

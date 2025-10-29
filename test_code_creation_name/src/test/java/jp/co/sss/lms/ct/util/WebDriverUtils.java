@@ -75,7 +75,7 @@ public class WebDriverUtils {
 
 	/**
 	 * 要素の期待文字列タイムアウト設定
-	 * @param by
+	 * @param locater
 	 * @param second
 	 * @return
 	 * @author 芦田 add:10/28
@@ -113,6 +113,13 @@ public class WebDriverUtils {
 		return wait.until(ExpectedConditions.urlToBe(url));
 	}
 
+	/**
+	 * 見出しのタイムアウト設定
+	 * @param h2
+	 * @param second
+	 * @return boolean
+	 * @author 芦田 add:10/28
+	 */
 	public static boolean expectedH2Timeout(String h2, int second) {
 		WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(second));
 		return wait.until(ExpectedConditions.textToBe(By.xpath("//h2[1]"), h2));
@@ -144,11 +151,11 @@ public class WebDriverUtils {
 
 	/**
 	 * 要素を押下する
-	 * @param by
+	 * @param locater
 	 * @author 芦田 add:10/27
 	 */
-	public static void clickOn(By by) {
-		webDriver.findElement(by).click();
+	public static void clickOn(By locater) {
+		webDriver.findElement(locater).click();
 	}
 
 	/**
@@ -158,6 +165,26 @@ public class WebDriverUtils {
 	public static void alertAccept() {
 		Alert alert = webDriver.switchTo().alert();
 		alert.accept();
+	}
+
+	/**
+	 * フォームに文字列を入力する
+	 * @param locater
+	 * @param str
+	 * @author 芦田 add:10/28
+	 */
+	public static void inputForm(By locater, String str) {
+		WebElement elem = webDriver.findElement(locater);
+		((JavascriptExecutor) webDriver).executeScript("arguments[0].value = arguments[1];", elem, str);
+	}
+
+	/**
+	 * フォームの内容を削除する
+	 * @param locater
+	 * @author 芦田 add:10/28
+	 */
+	public static void clearForm(By locater) {
+		webDriver.findElement(locater).clear();
 	}
 
 	/**
@@ -178,11 +205,11 @@ public class WebDriverUtils {
 
 	/**
 	 * 要素(By)が画面中央にくるまでスクロール
-	 * @param by
+	 * @param locater
 	 * @author 芦田 add:10/27
 	 */
-	public static void scrollToLocate(By by) {
-		WebElement elem = webDriver.findElement(by);
+	public static void scrollToLocate(By locater) {
+		WebElement elem = webDriver.findElement(locater);
 		((JavascriptExecutor) webDriver).executeScript(
 				"arguments[0].scrollIntoView({block: 'center'});", elem);
 	}
@@ -202,9 +229,9 @@ public class WebDriverUtils {
 	 * @param element
 	 * @author 芦田 add:10/27
 	 */
-	public static void scrollElementToBottom(By by) {
+	public static void scrollElementToBottom(By locater) {
 		((JavascriptExecutor) webDriver).executeScript(
-				"arguments[0].scrollTop = arguments[0].scrollHeight;", webDriver.findElement(by));
+				"arguments[0].scrollTop = arguments[0].scrollHeight;", webDriver.findElement(locater));
 	}
 
 	/**

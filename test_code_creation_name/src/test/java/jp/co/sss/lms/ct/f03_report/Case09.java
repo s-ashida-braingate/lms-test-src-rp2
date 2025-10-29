@@ -171,10 +171,10 @@ public class Case09 {
 		// このページに入りなおす
 		gotoReportFromUser();
 
-		By degree = By.id("content_0");
+		By achieve = By.id("content_0");
 		// 目標の達成度に数値以外を入力
-		webDriver.findElement(degree).clear();
-		webDriver.findElement(degree).sendKeys(INPUT_VALUE);
+		webDriver.findElement(achieve).clear();
+		webDriver.findElement(achieve).sendKeys(INPUT_VALUE);
 
 		// スクリーンショットを取得
 		getEvidence(new Object() {
@@ -187,7 +187,7 @@ public class Case09 {
 		webDriver.findElement(By.xpath("//button[text()='提出する']")).click();
 
 		// 目標の達成度が未入力になっているか検査
-		assertTrue(expectedConditionTimeout(ExpectedConditions.textToBe(degree, INPUT_VALUE), WAIT_SECOND));
+		assertTrue(expectedConditionTimeout(ExpectedConditions.textToBe(achieve, INPUT_VALUE), WAIT_SECOND));
 		// URLが期待値か検査
 		assertTrue(expectedUrlTimeout(CONTEXT_PATH + EXPECTED_URL, WAIT_SECOND));
 
@@ -210,10 +210,10 @@ public class Case09 {
 		// このページに入りなおす
 		gotoReportFromUser();
 
-		By degree = By.id("content_0");
+		By achieve = By.id("content_0");
 		// 目標の達成度に数値以外を入力
-		webDriver.findElement(degree).clear();
-		webDriver.findElement(degree).sendKeys(INPUT_VALUE1);
+		webDriver.findElement(achieve).clear();
+		webDriver.findElement(achieve).sendKeys(INPUT_VALUE1);
 
 		// スクリーンショットを取得
 		getEvidence(new Object() {
@@ -226,7 +226,7 @@ public class Case09 {
 		webDriver.findElement(By.xpath("//button[text()='提出する']")).click();
 
 		// 目標の達成度が未入力になっているか検査
-		assertTrue(expectedConditionTimeout(ExpectedConditions.textToBe(degree, INPUT_VALUE1), WAIT_SECOND));
+		assertTrue(expectedConditionTimeout(ExpectedConditions.textToBe(achieve, INPUT_VALUE1), WAIT_SECOND));
 		// URLが期待値か検査
 		assertTrue(expectedUrlTimeout(CONTEXT_PATH + EXPECTED_URL, WAIT_SECOND));
 
@@ -238,8 +238,8 @@ public class Case09 {
 		gotoReportFromUser();
 
 		// 目標の達成度に数値以外を入力
-		webDriver.findElement(degree).clear();
-		webDriver.findElement(degree).sendKeys(INPUT_VALUE2);
+		webDriver.findElement(achieve).clear();
+		webDriver.findElement(achieve).sendKeys(INPUT_VALUE2);
 
 		// スクリーンショットを取得
 		getEvidence(new Object() {
@@ -252,7 +252,7 @@ public class Case09 {
 		webDriver.findElement(By.xpath("//button[text()='提出する']")).click();
 
 		// 目標の達成度が未入力になっているか検査
-		assertTrue(expectedConditionTimeout(ExpectedConditions.textToBe(degree, INPUT_VALUE2), WAIT_SECOND));
+		assertTrue(expectedConditionTimeout(ExpectedConditions.textToBe(achieve, INPUT_VALUE2), WAIT_SECOND));
 		// URLが期待値か検査
 		assertTrue(expectedUrlTimeout(CONTEXT_PATH + EXPECTED_URL, WAIT_SECOND));
 
@@ -272,9 +272,9 @@ public class Case09 {
 		// このページに入りなおす
 		gotoReportFromUser();
 
-		By degree = By.id("content_0");
+		By achieve = By.id("content_0");
 		// 目標の達成度に数値以外を入力
-		webDriver.findElement(degree).clear();
+		webDriver.findElement(achieve).clear();
 
 		// スクリーンショットを取得
 		getEvidence(new Object() {
@@ -287,7 +287,7 @@ public class Case09 {
 		webDriver.findElement(By.xpath("//button[text()='提出する']")).click();
 
 		// 目標の達成度が未入力になっているか検査
-		assertTrue(expectedConditionTimeout(ExpectedConditions.textToBe(degree, ""), WAIT_SECOND));
+		assertTrue(expectedConditionTimeout(ExpectedConditions.textToBe(achieve, ""), WAIT_SECOND));
 		// URLが期待値か検査
 		assertTrue(expectedUrlTimeout(CONTEXT_PATH + EXPECTED_URL, WAIT_SECOND));
 
@@ -334,69 +334,36 @@ public class Case09 {
 		gotoReportFromUser();
 
 		By imp = By.id("content_1");
-		webDriver.findElement(imp).clear();
+		By weekly = By.id("content_2");
+		clearForm(imp);
+		clearForm(weekly);
 		// 所感に2001文字入力
-		// 2001文字を一気に入力するとレンダリングエラーとなるため500文字ずつ入力
-		String str = "a".repeat(500);
-		webDriver.findElement(imp).sendKeys(str);
-		webDriver.findElement(imp).sendKeys(str);
-		webDriver.findElement(imp).sendKeys(str);
-		str += "a";
-		webDriver.findElement(imp).sendKeys(str);
+		String str2001 = "a".repeat(2001);
+		inputForm(imp, str2001);
+		inputForm(weekly, str2001);
 
 		// スクリーンショットを取得
 		getEvidence(new Object() {
 		}, "01");
 
-		// 引数のところまでスクロール
-		scrollTo("400");
+		// 「提出する」ボタンへスクロール
+		By btn = By.xpath("//button[text()='提出する']");
+		scrollToLocate(btn);
+		// ボタンを押下
+		clickOn(btn);
 
-		// 「提出する」ボタンを押下
-		webDriver.findElement(By.xpath("//button[text()='提出する']")).click();
-
+		visibilityTimeout(imp, WAIT_SECOND);
+		scrollToLocate(imp);
+		scrollBy("100");
 		// 所感が2001文字になっているか検査
-		str = "a".repeat(2001);
-		assertTrue(expectedConditionTimeout(ExpectedConditions.textToBe(imp, str), WAIT_SECOND));
+		assertTrue(expectedConditionTimeout(ExpectedConditions.textToBe(imp, str2001), WAIT_SECOND));
+		assertTrue(expectedConditionTimeout(ExpectedConditions.textToBe(weekly, str2001), WAIT_SECOND));
 		// URLが期待値か検査
 		assertTrue(expectedUrlTimeout(CONTEXT_PATH + EXPECTED_URL, WAIT_SECOND));
 
 		// スクリーンショットを取得
 		getEvidence(new Object() {
 		}, "02");
-
-		// このページに入りなおす
-		gotoReportFromUser();
-
-		By weekly = By.id("content_2");
-		// 一週間の振り返りに2001文字入力
-		webDriver.findElement(weekly).clear();
-		// 2001文字を一気に入力するとレンダリングエラーとなるため500文字ずつ入力
-		str = "a".repeat(500);
-		webDriver.findElement(weekly).sendKeys(str);
-		webDriver.findElement(weekly).sendKeys(str);
-		webDriver.findElement(weekly).sendKeys(str);
-		str += "a";
-		webDriver.findElement(weekly).sendKeys(str);
-
-		// スクリーンショットを取得
-		getEvidence(new Object() {
-		}, "03");
-
-		// 引数のところまでスクロール
-		scrollTo("400");
-
-		// 「提出する」ボタンを押下
-		webDriver.findElement(By.xpath("//button[text()='提出する']")).click();
-
-		// 一週間の振り返りが2001文字になっているか検査
-		str = "a".repeat(2001);
-		assertTrue(expectedConditionTimeout(ExpectedConditions.textToBe(weekly, str), WAIT_SECOND));
-		// URLが期待値か検査
-		assertTrue(expectedUrlTimeout(CONTEXT_PATH + EXPECTED_URL, WAIT_SECOND));
-
-		// スクリーンショットを取得
-		getEvidence(new Object() {
-		}, "04");
 	}
 
 	/**
@@ -404,17 +371,11 @@ public class Case09 {
 	 */
 	void gotoReportFromUser() {
 
-		// 入力値
-		final String WELCOME_USERNAME = "ようこそ受講生ＡＡ１さん";
-
-		// 上部メニューの「ようこそ○○さん」リンクを押下
-		webDriver.findElement(By.xpath("//small[text()='" + WELCOME_USERNAME + "']")).click();
-
-		// 引数のところまでスクロール
-		scrollTo("400");
+		gotoUserDetail(null);
 
 		By btn = By.xpath("//td[text()='週報【デモ】']/following::input[@value='修正する']");
+		scrollToLocate(btn);
 		visibilityTimeout(btn, WAIT_SECOND);
-		webDriver.findElement(btn).click();
+		clickOn(btn);
 	}
 }

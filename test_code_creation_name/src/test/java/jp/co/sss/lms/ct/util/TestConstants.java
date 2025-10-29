@@ -100,13 +100,39 @@ public class TestConstants {
 		final String HEADER_TEXT = "ユーザー詳細";
 
 		// 上部メニューの「ようこそ○○さん」リンクを押下
-		webDriver.findElement(By.xpath("//small[text()='" + WELCOME_USERNAME + "']")).click();
+		By welcome = By.xpath("//small[text()='" + WELCOME_USERNAME + "']");
+		clickOn(welcome);
 
+		if (instance == null) {
+			expectedH2Timeout(HEADER_TEXT, WAIT_SECOND);
+		} else {
+			// URLが期待値になっているか
+			assertTrue(expectedUrlTimeout(CONTEXT_PATH + EXPECTED_URL, WAIT_SECOND));
+			// 見出しが期待値になっているか
+			assertTrue(expectedConditionTimeout(ExpectedConditions.textToBe(
+					By.tagName("h2"), HEADER_TEXT), WAIT_SECOND));
+
+			// スクリーンショットを取得
+			getEvidence(instance);
+		}
+	}
+
+	public static void gotoSectionDetail(Object instance) {
+
+		// 期待値
+		final String EXPECTED_URL = "section/detail";
+
+		// 提出済みの研修日の「詳細」ボタンへスクロール
+		By btn = By.xpath("//span[text()='提出済み']/../../td[5]/form/input[3][@value='詳細']");
+		scrollToLocate(btn);
+		visibilityTimeout(btn, WAIT_SECOND);
+		// 詳細ボタンを押下　
+		clickOn(btn);
+
+		// セクション詳細画面が表示されるのを待つ
+		visibilityTimeout(By.id("sectionDetail"), WAIT_SECOND);
 		// URLが期待値になっているか
 		assertTrue(expectedUrlTimeout(CONTEXT_PATH + EXPECTED_URL, WAIT_SECOND));
-		// 見出しが期待値になっているか
-		assertTrue(expectedConditionTimeout(ExpectedConditions.textToBe(
-				By.tagName("h2"), HEADER_TEXT), WAIT_SECOND));
 
 		// スクリーンショットを取得
 		getEvidence(instance);
