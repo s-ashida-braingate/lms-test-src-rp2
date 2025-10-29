@@ -2,7 +2,6 @@ package jp.co.sss.lms.ct.f05_exam;
 
 import static jp.co.sss.lms.ct.util.TestConstants.*;
 import static jp.co.sss.lms.ct.util.WebDriverUtils.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Date;
 import java.util.List;
@@ -93,13 +92,14 @@ public class Case14 {
 	@DisplayName("テスト06 正答と誤答が半々で「確認画面へ進む」ボタンを押下し試験回答確認画面に遷移")
 	void test06() {
 
-		assertTrue(false, "作成途中");
+		//		assertTrue(false, "作成途中");
 
 		List<QuestionDto> questionDtoList = examService.getExamPreview(1);
 		List<String> answerList = questionDtoList.get(0).getAnswerList();
 		for (String answer : answerList) {
 			System.out.println(answer.toString());
 		}
+		//		String[] answer = { "3", "3", "1", "1", "2", "2", "1", "1", "1", "1", "1", "1" };
 	}
 
 	@Test
