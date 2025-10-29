@@ -164,6 +164,7 @@ public class TestConstants {
 	}
 
 	public static void gotoAttendanceUpdate(Object instance) {
+
 		// 期待値
 		final String EXPECTED_H2 = "勤怠管理";
 		final String EXPECTED_URL = "attendance/update";
@@ -183,5 +184,55 @@ public class TestConstants {
 			// スクリーンショットを取得
 			getEvidence(instance);
 		}
+	}
+
+	/**
+	 * テストケース13 test04
+	 * @param instance
+	 */
+	public static void gotoExamStart(Object instance) {
+
+		// 期待値
+		final String EXPECTED_H2 = "ITリテラシー①";
+		final String EXPECTED_URL = "exam/start";
+
+		By btn = By.xpath("//*[@id=\"sectionDetail\"]/table[1]/tbody/tr[2]/td[2]/form/input[1][@value='詳細']");
+		// 「詳細」ボタンへスクロール
+		scrollToLocate(btn);
+		// ボタンをクリック
+		clickOn(btn);
+
+		// 見出しを検証
+		assertTrue(expectedH2Timeout(EXPECTED_H2, WAIT_SECOND));
+		// URLを検証
+		assertTrue(expectedUrlTimeout(CONTEXT_PATH + EXPECTED_URL, WAIT_SECOND));
+
+		// スクリーンショットを取得
+		getEvidence(instance);
+	}
+
+	/**
+	 * テストケース13 test05
+	 * @param instance
+	 */
+	public static void gotoExamQuestion(Object instance) {
+
+		// 期待値
+		final String EXPECTED_H2 = "ITリテラシー①";
+		final String EXPECTED_URL = CONTEXT_PATH + "exam/question";
+
+		By btn = By.xpath("//*[@id=\"main\"]/div/form/input[4][@value='試験を開始する']");
+		// 「試験を開始する」ボタンへスクロール
+		scrollToLocate(btn);
+		// ボタンをクリック
+		clickOn(btn);
+
+		// 見出しを検証
+		assertTrue(expectedH2Timeout(EXPECTED_H2, WAIT_SECOND));
+		// URLを検証
+		assertTrue(expectedUrlTimeout(EXPECTED_URL, WAIT_SECOND));
+
+		// スクリーンショットを取得
+		getEvidence(instance);
 	}
 }

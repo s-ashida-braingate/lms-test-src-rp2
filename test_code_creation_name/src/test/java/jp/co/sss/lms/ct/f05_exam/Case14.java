@@ -1,8 +1,11 @@
 package jp.co.sss.lms.ct.f05_exam;
 
+import static jp.co.sss.lms.ct.util.TestConstants.*;
 import static jp.co.sss.lms.ct.util.WebDriverUtils.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Date;
+import java.util.List;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -11,15 +14,24 @@ import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import jp.co.sss.lms.dto.QuestionDto;
+import jp.co.sss.lms.service.ExamService;
 
 /**
  * 結合テスト 試験実施機能
  * ケース14
  * @author holy
  */
+@SpringBootTest
 @TestMethodOrder(OrderAnnotation.class)
 @DisplayName("ケース13 受講生 試験の実施 結果50点")
 public class Case14 {
+
+	@Autowired
+	ExamService examService;
 
 	/** テスト07およびテスト08 試験実施日時 */
 	static Date date;
@@ -40,42 +52,54 @@ public class Case14 {
 	@Order(1)
 	@DisplayName("テスト01 トップページURLでアクセス")
 	void test01() {
-		// TODO ここに追加
+		gotoTop(new Object() {
+		});
 	}
 
 	@Test
 	@Order(2)
 	@DisplayName("テスト02 初回ログイン済みの受講生ユーザーでログイン")
 	void test02() {
-		// TODO ここに追加
+		loginTest(new Object() {
+		});
 	}
 
 	@Test
 	@Order(3)
 	@DisplayName("テスト03 「試験有」の研修日の「詳細」ボタンを押下しセクション詳細画面に遷移")
 	void test03() {
-		// TODO ここに追加
+		gotoSectionDetail(new Object() {
+		});
 	}
 
 	@Test
 	@Order(4)
 	@DisplayName("テスト04 「本日の試験」エリアの「詳細」ボタンを押下し試験開始画面に遷移")
 	void test04() {
-		// TODO ここに追加
+		gotoExamStart(new Object() {
+		});
 	}
 
 	@Test
 	@Order(5)
 	@DisplayName("テスト05 「試験を開始する」ボタンを押下し試験問題画面に遷移")
 	void test05() {
-		// TODO ここに追加
+		gotoExamQuestion(new Object() {
+		});
 	}
 
 	@Test
 	@Order(6)
 	@DisplayName("テスト06 正答と誤答が半々で「確認画面へ進む」ボタンを押下し試験回答確認画面に遷移")
 	void test06() {
-		// TODO ここに追加
+
+		assertTrue(false, "作成途中");
+
+		List<QuestionDto> questionDtoList = examService.getExamPreview(1);
+		List<String> answerList = questionDtoList.get(0).getAnswerList();
+		for (String answer : answerList) {
+			System.out.println(answer.toString());
+		}
 	}
 
 	@Test

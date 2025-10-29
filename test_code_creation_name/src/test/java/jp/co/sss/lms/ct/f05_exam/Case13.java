@@ -70,24 +70,7 @@ public class Case13 {
 	@Order(4)
 	@DisplayName("テスト04 「本日の試験」エリアの「詳細」ボタンを押下し試験開始画面に遷移")
 	void test04() {
-
-		// 期待値
-		final String EXPECTED_H2 = "ITリテラシー①";
-		final String EXPECTED_URL = "exam/start";
-
-		By btn = By.xpath("//*[@id=\"sectionDetail\"]/table[1]/tbody/tr[2]/td[2]/form/input[1][@value='詳細']");
-		// 「詳細」ボタンへスクロール
-		scrollToLocate(btn);
-		// ボタンをクリック
-		clickOn(btn);
-
-		// 見出しを検証
-		assertTrue(expectedH2Timeout(EXPECTED_H2, WAIT_SECOND));
-		// URLを検証
-		assertTrue(expectedUrlTimeout(CONTEXT_PATH + EXPECTED_URL, WAIT_SECOND));
-
-		// スクリーンショットを取得
-		getEvidence(new Object() {
+		gotoExamStart(new Object() {
 		});
 	}
 
@@ -95,24 +78,7 @@ public class Case13 {
 	@Order(5)
 	@DisplayName("テスト05 「試験を開始する」ボタンを押下し試験問題画面に遷移")
 	void test05() {
-
-		// 期待値
-		final String EXPECTED_H2 = "ITリテラシー①";
-		final String EXPECTED_URL = CONTEXT_PATH + "exam/question";
-
-		By btn = By.xpath("//*[@id=\"main\"]/div/form/input[4][@value='試験を開始する']");
-		// 「試験を開始する」ボタンへスクロール
-		scrollToLocate(btn);
-		// ボタンをクリック
-		clickOn(btn);
-
-		// 見出しを検証
-		assertTrue(expectedH2Timeout(EXPECTED_H2, WAIT_SECOND));
-		// URLを検証
-		assertTrue(expectedUrlTimeout(EXPECTED_URL, WAIT_SECOND));
-
-		// スクリーンショットを取得
-		getEvidence(new Object() {
+		gotoExamQuestion(new Object() {
 		});
 	}
 
