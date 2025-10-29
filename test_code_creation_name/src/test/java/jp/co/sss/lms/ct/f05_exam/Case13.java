@@ -119,7 +119,7 @@ public class Case13 {
 	@Test
 	@Order(6)
 	@DisplayName("テスト06 未回答の状態で「確認画面へ進む」ボタンを押下し試験回答確認画面に遷移")
-	void test06() {
+	void test06() throws InterruptedException {
 
 		// 期待値
 		final String EXPECTED_H2 = "ITリテラシー①";
@@ -129,6 +129,7 @@ public class Case13 {
 		// 「試験を開始する」ボタンへスクロール
 		scrollToLocate(btn);
 		// ボタンをクリック
+		Thread.sleep(2000L);
 		clickOn(btn);
 
 		visibilityTimeout(By.xpath("//h2[1]"), WAIT_SECOND);
@@ -157,6 +158,7 @@ public class Case13 {
 		By btn = By.xpath("//button[text()='回答を送信する']");
 		// 「回答を送信する」ボタンへスクロール
 		scrollToLocate(btn);
+		Thread.sleep(2000L);
 		// ボタンをクリック
 		clickOn(btn);
 		// OKを選択
